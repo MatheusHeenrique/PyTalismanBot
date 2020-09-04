@@ -1,86 +1,51 @@
-from tools import Talisman
+from tools import Talisman, Ataque
 from pyautogui import press
 from time import sleep
 
 
-def curar(classe=None, bCura=None):
-    if classe == 'f':
-        press('f1')
-        while talisman.get_info('v') < 3200:
-            press(str(bCura))
-            sleep(1.6)
-    else:
-        sleep(4)
-        press(str(bCura))  # botão em que a vida esta setada
-        sleep(15)
+def config(clase_personagem, Vida, Mana=None, BotaoCura=None, BotaoMana=None, FayV=3200):
+    # cura
+    if talisman.get_info('v') < Vida:
 
-
-def mana(bMana=None):
-    sleep(4)
-    press(str(bMana))  # botão em que a mana esta setada
-    sleep(15)
-
-
-def per(clase_personagem, Vida, Mana=None, BotaoCura=None, BotaoMana=None):
-
-    # fairy
-    if clase_personagem == 'f':
-        if talisman.get_info('v') < Vida:
-            curar('f', BotaoCura)
-        if talisman.get_info('m') < Mana:  # vai usar a mana
-            mana(BotaoMana)
-
-    # assasin e monk
-    elif clase_personagem == 's':
-        if talisman.get_info('v') < Vida:  # vai curar quando estiver com 150 de vida
-            curar(bCura=BotaoCura)
-
-    # tamer e wiz
-    elif clase_personagem == 't' or clase_personagem == 'w':
-        if talisman.get_info('v') < Vida:
-            curar(bCura=BotaoCura)
-        if talisman.get_info('m') < Mana:
-            mana(BotaoMana)
-
-
-def atacar(num_ataque, tempo=None):
-    # selecionando inimigo
-    while True:
-        press('tab')
-        enimigo_sel = talisman.get_info('se')
-        if enimigo_sel >= 1:
-            break
-
-    # atacando
-    i = 0
-    while True:
-        if i == len(num_ataque):
-            i = 0
-
-        press(str(num_ataque[i]))
-
-        if i < len(num_ataque):
-            i += 1
-
-        vida_eni = talisman.get_info('ve')
-        if vida_eni == 0:
-            break
-        else:
-            if tempo is not None:
-                if i == 0:
-                    sleep(tempo[0])
-                else:
-                    sleep(tempo[1])
-            else:
+        if clase_personagem == 'f':
+            press('f1')
+            while talisman.get_info('v') < FayV:
+                press(str(BotaoCura))
                 sleep(1.6)
+        else:
+            sleep(4)
+            press(str(BotaoCura))  # botão em que a vida esta setada
+            sleep(15)
+
+    # mana
+    if BotaoMana is not None:
+        if talisman.get_info('m') < Mana:
+            sleep(4)
+            press(str(BotaoMana))  # botão em que a mana esta setada
+            sleep(15)
 
 
 talisman = Talisman()
+ataque = Ataque('s')
+
 sleep(3)
 
 while True:
     # selecionando a classe
-    per('w', Vida=200, Mana=250, BotaoCura=9, BotaoMana=8)
+    config('s', Vida=100, BotaoCura=0)
+
+
+    # selecionando inimigo
+    while True:
+        press('tab')
+        EnimigoSelect = talisman.get_info('se')
+        if EnimigoSelect >= 1:
+            break
 
     # atacando
-    atacar([2, 1], tempo=[2.6, 1.6])
+    while True:
+        ataque.Atacar(3)  # selecione o ataque
+        VidaEnimigo = talisman.get_info('ve')
+
+        if VidaEnimigo == 0:
+            break
