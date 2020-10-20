@@ -72,16 +72,17 @@ class ActionTalisman(ReadTalisman):
 
     def ClasseAtaques(self, NumAtaque):
         # convertendo para string
-        NumAtaque = str(NumAtaque)
+        #NumAtaque = str(NumAtaque)
+        press(str(NumAtaque))
 
-        if self.Classe == 'f':  # fay
-            press(NumAtaque)
-            if NumAtaque == 1:
-                sleep(1.5)
-            elif NumAtaque == 2:
-                sleep(3)
-        elif self.Classe == 's':  # sin
-            press(NumAtaque)
+        # fay
+        if NumAtaque == 1 and self.Classe == 'f':
+            sleep(1.5)
+        elif NumAtaque == 2 and self.Classe == 'f':
+            sleep(2)
+
+        # sin
+        if self.Classe == 's':  # sin
             sleep(1)
 
     def Autopick(self, Pos=[515, 418], Pulo=55):
