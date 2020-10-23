@@ -54,10 +54,15 @@ class ActionTalisman(ReadTalisman):
             if EnimigoSelect >= 1:
                 break
 
+        Verif = 0
         TempoInicio = time()
         # atacando
         while True:
-            self.ClasseAtaques(Numero)  # selecione o ataque
+            if type(Numero) == type(list()):
+                self.ClasseAtaques(Numero[Verif])
+            else:
+                self.ClasseAtaques(Numero)  # selecione o ataque
+
             VidaEnimigo = self.get_info('ve')
 
             # verificando se o bot esta muito tempo parado
@@ -70,10 +75,14 @@ class ActionTalisman(ReadTalisman):
             if VidaEnimigo == 0:
                 break
 
+            if Verif == 0:
+                Verif = 1
+
     def ClasseAtaques(self, NumAtaque):
         # convertendo para string
         #NumAtaque = str(NumAtaque)
         press(str(NumAtaque))
+        wiz = 'fogo'
 
         # fay
         if NumAtaque == 1 and self.Classe == 'f':
@@ -81,9 +90,25 @@ class ActionTalisman(ReadTalisman):
         elif NumAtaque == 2 and self.Classe == 'f':
             sleep(2)
 
-        # sin
-        if self.Classe == 's':  # sin
+        # tamer
+        if NumAtaque == 1 and self.Classe == 't':
             sleep(1)
+        elif (NumAtaque == 3 or NumAtaque == 4) and self.Classe == 't':
+            sleep(1.5)
+
+        # wiz
+        if self.Classe == 'w' and wiz == 'fogo':
+            if NumAtaque == 1:
+                sleep(1.5)
+            elif NumAtaque == 2:
+                sleep(2.2)
+            elif NumAtaque == 4:
+                sleep(1)
+        elif self.Classe == 'w' and wiz == 'gelo':
+            if NumAtaque == 1:
+                sleep(1)
+            elif NumAtaque == 3:
+                sleep(2.5)
 
     def Autopick(self, Pos=[515, 418], Pulo=55):
         for x in range(417, 623, Pulo):
