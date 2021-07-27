@@ -61,8 +61,3 @@ class MeuTeclado:
             win32api.SendMessage(self.hwnd, win32con.WM_KEYDOWN, 0x39, 0)
             sleep(0.5)
             win32api.SendMessage(self.hwnd, win32con.WM_KEYUP, 0x39, 0)
-
-
-
-teste = MeuTeclado()
-teste.Precionar('f1')

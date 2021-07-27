@@ -1,9 +1,11 @@
-from tools.principal import Talisman
+from tools.Ataque import Talisman
 
+Personagem = {'Classe': 'fairy', 'Ataque': 2, 'Vida': 4300, 'Mana': 3200,
+              'BotaoCura': 6, 'BotaoMana': 9, 'Wizard': None, 'VidaFairy': 12000}
 
-talisman = Talisman('f')
+talisman = Talisman(Personagem)
 while True:
-    # fay config: Vida=3600, Mana=2600, BotaoCura=6, BotaoMana=9, FayV=10000
-    talisman.Cura(Vida=4300, Mana=3200, BotaoCura=6, BotaoMana=9, FayV=12000)
+    talisman.Curar()
     talisman.UsarMagia(8, 1)
-    talisman.Atacar(2)
+    talisman.Atacar()
+
