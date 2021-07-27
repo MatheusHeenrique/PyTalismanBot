@@ -1,4 +1,3 @@
-import time
 from time import sleep
 import win32gui, win32ui, win32con, win32api
 
