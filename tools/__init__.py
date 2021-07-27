@@ -1,5 +1,5 @@
 from ReadWriteMemory import ReadWriteMemory
-from pyautogui import press, moveTo, click
+from tools.teclado import MeuTeclado
 from time import sleep, time
 from math import trunc
 
@@ -11,15 +11,13 @@ class ReadTalisman:
         self.Process.open()
 
         # ponteiros
-        self.HealthPointer = self.Process.get_pointer(0x00400000 + 0x00D1CB7C, offsets=[0x30, 0x30, 0x84, 0x3B8])
-        self.ManaPointer = self.Process.get_pointer(0x00400000 + 0x00D1CB7C, offsets=[0x64, 0x30, 0x7E8, 0x1D4, 0x3BC])
-        self.StaminaPointer = self.Process.get_pointer(0x00400000 + 0x00EA6CF4,
-                                                       offsets=[0xB0, 0xC0, 0x24, 0x4, 0x10C, 0x3DC])  # atualizar
-        self.SelectedEnemyPointer = self.Process.get_pointer(0x00400000 + 0x00E97E60,
-                                                             offsets=[0xD0, 0x794, 0x0, 0x24, 0x300])
-        self.HealthEnemyPointer = self.Process.get_pointer(0x00400000 + 0x00EA5B78,
+        self.HealthPointer = self.Process.get_pointer(0x00400000 + 0x00BFB980, offsets=[0x320]) # check
+        self.ManaPointer = self.Process.get_pointer(0x00400000 + 0x00BFB980, offsets=[0x324]) # check
+        self.StaminaPointer = self.Process.get_pointer(0x00400000 + 0x00BFB980, offsets=[0x344])  # check
+        self.SelectedEnemyPointer = self.Process.get_pointer(0x00400000 + 0x00EA7CF4, offsets=[0xB4, 0x174, 0x48, 0x28, 0x9C, 0x18, 0x784]) # check
+        self.HealthEnemyPointer = self.Process.get_pointer(0x00400000 + 0x00EA7B78,
                                                            offsets=[0x18, 0x59C, 0x0, 0xC, 0x1F4, 0x50, 0x28, 0x224,
-                                                                    0x50, 0x460, 0x918])
+                                                                    0x50, 0x28, 0xDB0]) # check
 
     def get_info(self, valor):
         if valor == 'v':  # verifica a vida
@@ -45,11 +43,12 @@ class ActionTalisman(ReadTalisman):
         ReadTalisman.__init__(self)
         self.Classe = Personagem
         self.MagiaInicio = None
+        self.Teclado = MeuTeclado()
 
     def Atacar(self, Numero):
         # selecionando inimigo
         while True:
-            press('tab')
+            self.Teclado.Precionar('tab')
             EnimigoSelect = self.get_info('se')
             if EnimigoSelect >= 1:
                 break
@@ -81,7 +80,8 @@ class ActionTalisman(ReadTalisman):
     def ClasseAtaques(self, NumAtaque):
         # convertendo para string
         #NumAtaque = str(NumAtaque)
-        press(str(NumAtaque))
+        self.Teclado.Precionar(NumAtaque)
+
         wiz = 'fogo'
 
         # fay
@@ -110,32 +110,25 @@ class ActionTalisman(ReadTalisman):
             elif NumAtaque == 3:
                 sleep(2.5)
 
-    def Autopick(self, Pos=[515, 418], Pulo=55):
-        for x in range(417, 623, Pulo):
-            for y in range(311, 485, Pulo):
-                click(x=x, y=y, button='right')
-        moveTo(x=Pos[0], y=Pos[1])
-        click()
-
     def Cura(self, Vida, Mana=None, BotaoCura=None, BotaoMana=None, FayV=3200):
         # cura
         if self.get_info('v') < Vida:
 
             if self.Classe == 'f':
-                press('f1')
+                self.Teclado.Precionar('f1')
                 while self.get_info('v') < FayV:
-                    press(str(BotaoCura))
+                    self.Teclado.Precionar(BotaoCura)
                     sleep(1.6)
             else:
                 sleep(4)
-                press(str(BotaoCura))  # botão em que a vida esta setada
+                self.Teclado.Precionar(BotaoCura)  # botão em que a vida esta setada
                 sleep(15)
 
         # mana
         if BotaoMana is not None:
             if self.get_info('m') < Mana:
                 sleep(4)
-                press(str(BotaoMana))  # botão em que a mana esta setada
+                self.Teclado.Precionar(BotaoMana)  # botão em que a mana esta setada
                 sleep(15)
 
     def UsarMagia(self, NumMagia, tempo):
@@ -147,7 +140,7 @@ class ActionTalisman(ReadTalisman):
 
         if self.MagiaInicio is None:
             if self.Classe == 'f':
-                press('f1')
-            press(str(NumMagia))
+                self.Teclado.Precionar('f1')
+            self.Teclado.Precionar(NumMagia)
             self.MagiaInicio = time()
             self.Tempo = tempo
