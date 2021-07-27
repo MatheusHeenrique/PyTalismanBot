@@ -37,7 +37,7 @@ class ReadTalisman:
             return self.HealthEnemy
 
 
-class ActionTalisman(ReadTalisman):
+class Talisman(ReadTalisman):
 
     def __init__(self, Personagem):
         ReadTalisman.__init__(self)
