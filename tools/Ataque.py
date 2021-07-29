@@ -5,11 +5,11 @@ from math import trunc
 
 
 class Talisman(LerTalisman):
-    def __init__(self, config):
+    def __init__(self, Personagem, Server):
         LerTalisman.__init__(self)
         self.MagiaInicio = None
-        self.ClasseInfo = config
-        self.Teclado = MeuTeclado()
+        self.ClasseInfo = Personagem
+        self.Teclado = MeuTeclado(Server)
 
     def Atacar(self):
         # selecionando inimigo
@@ -38,7 +38,6 @@ class Talisman(LerTalisman):
     def Ataque(self):
         # ataque
         self.Teclado.Precionar(self.ClasseInfo['Ataque'])
-
 
         # fay
         if self.ClasseInfo['Ataque'] == 1 and self.ClasseInfo['Classe'][0] == 'f':
@@ -101,6 +100,12 @@ class Talisman(LerTalisman):
                 self.Teclado.Precionar(self.ClasseInfo['BotaoMana'])  # botão em que a mana esta setada
                 sleep(15)
 
+    def FairyCurar(self, valor):
 
-
+        while True:
+            for i in range(0, 8):
+                self.Teclado.Precionar(valor[0])
+                sleep(0.5)
+            self.Teclado.Precionar(valor[1])
+            sleep(0.5)
 

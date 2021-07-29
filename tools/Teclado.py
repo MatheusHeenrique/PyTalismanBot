@@ -4,8 +4,8 @@ import win32gui, win32ui, win32con, win32api
 
 class MeuTeclado:
 
-    def __init__(self):
-        self.NomeProcesso = "Talisman Online | Giant Sky Medal | ver.5540\n"
+    def __init__(self, NomeServer):
+        self.NomeProcesso = f"Talisman Online | {NomeServer} | ver.5540\n"
         self.hwnd = win32gui.FindWindow(None, self.NomeProcesso)
         # hwnd = get_inner_windows(hwnd)['Edit']
         win = win32ui.CreateWindowFromHandle(self.hwnd)
