@@ -11,6 +11,10 @@ class Talisman(LerTalisman):
         self.ClasseInfo = Personagem
         self.Teclado = MeuTeclado(Server)
 
+        if type(self.ClasseInfo['Ataque']) == type(list()):
+            self.TipoAtaque = self.ClasseInfo['Ataque'][-1]
+            self.ListaAtaque = None
+
     def Atacar(self):
         # selecionando inimigo
         while True:
@@ -30,14 +34,37 @@ class Talisman(LerTalisman):
             Minutos = trunc(TempoFinal - TempoInicio)
 
             if Minutos > 60:
+                self.ListaAtaque = None # resetar lista de ataques
                 break
 
             if VidaEnimigo == 0:
+                self.ListaAtaque = None # resetar lista de ataques
                 break
 
     def Ataque(self):
         # ataque
-        self.Teclado.Precionar(self.ClasseInfo['Ataque'])
+        if type(self.ClasseInfo['Ataque']) == type(list()):
+
+            # passando a lista de ataques do dicionario para a variavel lista ataque
+            if self.ListaAtaque is None:
+                self.ListaAtaque = self.ClasseInfo['Ataque'][:-1]
+
+            if self.TipoAtaque == 'l': # vai ficar repetindo
+                self.Teclado.Precionar(self.ListaAtaque[0])
+
+                # loop aqui
+                self.ListaAtaque.append(self.ListaAtaque[0])
+                self.ListaAtaque.pop(0)
+
+            elif self.TipoAtaque == 'u': # vai usar todos ataques e ficar repetindo o ultimo
+                self.Teclado.Precionar(self.ListaAtaque[0])
+
+                # repetindo ultimo ataqui
+                if len(self.ListaAtaque) > 1:
+                    self.ListaAtaque.pop(0)
+
+        else:
+            self.Teclado.Precionar(self.ClasseInfo['Ataque'])
 
         # fay
         if self.ClasseInfo['Ataque'] == 1 and self.ClasseInfo['Classe'][0] == 'f':
@@ -108,4 +135,3 @@ class Talisman(LerTalisman):
                 sleep(0.5)
             self.Teclado.Precionar(valor[1])
             sleep(0.5)
-

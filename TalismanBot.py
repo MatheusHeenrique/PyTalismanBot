@@ -7,5 +7,5 @@ talisman = Talisman(Personagem, 'Giant Sky Medal')
 while True:
     # talisman.FairyCurar((6, 7))
     talisman.Curar()
-    talisman.UsarMagia(8, 1)
+    talisman.UsarMagia(7, 0.30)
     talisman.Atacar()
