@@ -5,11 +5,11 @@ from math import trunc
 
 
 class Talisman(LerTalisman):
-    def __init__(self, Personagem, Server):
+    def __init__(self, Personagem):
         LerTalisman.__init__(self)
         self.MagiaInicio = None
         self.ClasseInfo = Personagem
-        self.Teclado = MeuTeclado(Server)
+        self.Teclado = MeuTeclado()
 
         if type(self.ClasseInfo['Ataque']) == type(list()):
             self.TipoAtaque = self.ClasseInfo['Ataque'][-1]
