@@ -10,53 +10,14 @@ class MeuTeclado:
         # hwnd = get_inner_windows(hwnd)['Edit']
         win = win32ui.CreateWindowFromHandle(self.hwnd)
 
-    def Precionar(self, tecla):
+        # dicionario teclado
+        self.DicionarioTeclado = {'tab': 0x09, 'f1': 0x70, '0': 0x30, '1': 0x31, '2': 0x32, '3': 0x33,
+                                  '4': 0x34, '5': 0x35, '6': 0x36, '7': 0x37, '8': 0x38, '9': 0x39}
 
-        if tecla == 'tab':
-            win32api.SendMessage(self.hwnd, win32con.WM_KEYDOWN, 0x09, 0)
-            sleep(0.5)
-            win32api.SendMessage(self.hwnd, win32con.WM_KEYUP, 0x09, 0)
-        elif tecla == 'f1':
-            win32api.SendMessage(self.hwnd, win32con.WM_KEYDOWN, 0x70, 0)
-            sleep(0.5)
-            win32api.SendMessage(self.hwnd, win32con.WM_KEYUP, 0x70, 0)
-        elif tecla == 0:
-            win32api.SendMessage(self.hwnd, win32con.WM_KEYDOWN, 0x30, 0)
-            sleep(0.5)
-            win32api.SendMessage(self.hwnd, win32con.WM_KEYUP, 0x30, 0)
-        elif tecla == 1:
-            win32api.SendMessage(self.hwnd, win32con.WM_KEYDOWN, 0x31, 0)
-            sleep(0.5)
-            win32api.SendMessage(self.hwnd, win32con.WM_KEYUP, 0x31, 0)
-        elif tecla == 2:
-            win32api.SendMessage(self.hwnd, win32con.WM_KEYDOWN, 0x32, 0)
-            sleep(0.5)
-            win32api.SendMessage(self.hwnd, win32con.WM_KEYUP, 0x32, 0)
-        elif tecla == 3:
-            win32api.SendMessage(self.hwnd, win32con.WM_KEYDOWN, 0x33, 0)
-            sleep(0.5)
-            win32api.SendMessage(self.hwnd, win32con.WM_KEYUP, 0x33, 0)
-        elif tecla == 4:
-            win32api.SendMessage(self.hwnd, win32con.WM_KEYDOWN, 0x34, 0)
-            sleep(0.5)
-            win32api.SendMessage(self.hwnd, win32con.WM_KEYUP, 0x34, 0)
-        elif tecla == 5:
-            win32api.SendMessage(self.hwnd, win32con.WM_KEYDOWN, 0x35, 0)
-            sleep(0.5)
-            win32api.SendMessage(self.hwnd, win32con.WM_KEYUP, 0x35, 0)
-        elif tecla == 6:
-            win32api.SendMessage(self.hwnd, win32con.WM_KEYDOWN, 0x36, 0)
-            sleep(0.5)
-            win32api.SendMessage(self.hwnd, win32con.WM_KEYUP, 0x36, 0)
-        elif tecla == 7:
-            win32api.SendMessage(self.hwnd, win32con.WM_KEYDOWN, 0x37, 0)
-            sleep(0.5)
-            win32api.SendMessage(self.hwnd, win32con.WM_KEYUP, 0x37, 0)
-        elif tecla == 8:
-            win32api.SendMessage(self.hwnd, win32con.WM_KEYDOWN, 0x38, 0)
-            sleep(0.5)
-            win32api.SendMessage(self.hwnd, win32con.WM_KEYUP, 0x38, 0)
-        elif tecla == 9:
-            win32api.SendMessage(self.hwnd, win32con.WM_KEYDOWN, 0x39, 0)
-            sleep(0.5)
-            win32api.SendMessage(self.hwnd, win32con.WM_KEYUP, 0x39, 0)
+
+    def Precionar(self, tecla):
+        tecla = str(tecla).lower()
+
+        win32api.SendMessage(self.hwnd, win32con.WM_KEYDOWN, self.DicionarioTeclado[tecla], 0)
+        sleep(0.5)
+        win32api.SendMessage(self.hwnd, win32con.WM_KEYUP, self.DicionarioTeclado[tecla], 0)
