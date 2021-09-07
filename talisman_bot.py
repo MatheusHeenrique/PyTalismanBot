@@ -9,5 +9,5 @@ while True:
     # talisman.fairy_curar((6, 7))
     talisman.curar()
     talisman.usar_magia(8, 1, True)
-    talisman.usar_magia(7, 2, True)
+    talisman.usar_magia(7, 4, True)
     talisman.atacar()

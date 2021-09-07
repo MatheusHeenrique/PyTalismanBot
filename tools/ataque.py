@@ -118,10 +118,6 @@ class Talisman(LerTalisman):
                     lista_magia.pop(3)
                     lista_magia.append(None)
 
-                    # atualizando a variavel self.magia
-                    # self.magia.pop(pos_lista)
-                    # self.magia.insert(pos_lista, lista_magia)
-
             if lista_magia[3] is None:
 
                 # verificando se é para se selecionar
@@ -133,25 +129,6 @@ class Talisman(LerTalisman):
                     self.teclado.precionar(lista_magia[0])
                 lista_magia.pop(3)
                 lista_magia.append(time())
-
-                # atualizando a variavel self.magia
-                # self.magia.pop(pos_lista)
-                # self.magia.insert(pos_lista, lista_magia)
-
-
-        # if self.magia_inicio != []:
-        #     for i in len(self.magia_inicio):
-        #         inicio = self.magia_inicio[i-1]
-        #         verificar = trunc(time() - inicio[1])
-        #         if verificar >= inicio[2]:
-        #             self.magia_inicio.pop(i)
-        #
-        # if self.magia_inicio == [] or :
-        #     if self.classe_info['Classe'][0] == 'f':
-        #         self.teclado.precionar('f1')
-        #     self.teclado.precionar(numero_magia)
-        #     self.magia_inicio.append([numero_magia, time(), tempo * 60])
-        #     # self.tempo_magia = tempo * 60
 
     def curar(self):
         # se o usuario não tiver colocado com quanto ele quer que se cure
