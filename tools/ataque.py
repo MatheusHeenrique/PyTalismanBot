@@ -107,6 +107,16 @@ class Talisman(LerTalisman):
             self.tempo_magia = tempo * 60
 
     def curar(self):
+        # se o usuario não tiver colocado com quanto ele quer que se cure
+        # o programa vai se curar quando tiver com 40 da mana ou da vida
+        if self.classe_info['Vida'] is None:
+            vida_total = self.catar_info('v') * 40
+            self.classe_info['Vida'] = trunc(vida_total / 100)
+
+        if self.classe_info['Mana'] is None:
+            mana_total = self.catar_info('m') * 40
+            self.classe_info['Mana'] = trunc(mana_total / 100)
+
         # cura
         if self.catar_info('v') < self.classe_info['Vida']:
 
