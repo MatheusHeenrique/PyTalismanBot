@@ -7,7 +7,7 @@ from math import trunc
 class Talisman(LerTalisman):
     def __init__(self, personagem):
         LerTalisman.__init__(self)
-        self.magia_inicio = None
+        self.magia = []
         self.classe_info = personagem
         self.teclado = MeuTeclado()
 
@@ -34,11 +34,11 @@ class Talisman(LerTalisman):
             minutos = trunc(tempo_final - tempo_inicio)
 
             if minutos > 60:
-                self.lista_ataque = None # resetar lista de ataques
+                self.lista_ataque = None  # resetar lista de ataques
                 break
 
             if vida_enimigo == 0:
-                self.lista_ataque = None # resetar lista de ataques
+                self.lista_ataque = None  # resetar lista de ataques
                 break
 
     def ataque(self):
@@ -49,14 +49,14 @@ class Talisman(LerTalisman):
             if self.lista_ataque is None:
                 self.lista_ataque = self.classe_info['Ataque'][:-1]
 
-            if self.tipo_ataque == 'l': # vai ficar repetindo
+            if self.tipo_ataque == 'l':  # vai ficar repetindo
                 self.teclado.precionar(self.lista_ataque[0])
 
                 # loop aqui
                 self.lista_ataque.append(self.lista_ataque[0])
                 self.lista_ataque.pop(0)
 
-            elif self.tipo_ataque == 'u': # vai usar todos ataques e ficar repetindo o ultimo
+            elif self.tipo_ataque == 'u':  # vai usar todos ataques e ficar repetindo o ultimo
                 self.teclado.precionar(self.lista_ataque[0])
 
                 # repetindo ultimo ataqui
@@ -75,7 +75,8 @@ class Talisman(LerTalisman):
         # tamer
         if self.classe_info['Ataque'] == 1 and self.classe_info['Classe'][0] == 't':
             sleep(1)
-        elif (self.classe_info['Ataque'] == 3 or self.classe_info['Ataque'] == 4) and self.classe_info['Classe'][0] == 't':
+        elif (self.classe_info['Ataque'] == 3 or self.classe_info['Ataque'] == 4) and self.classe_info['Classe'][
+            0] == 't':
             sleep(1.5)
 
         # wiz
@@ -92,19 +93,65 @@ class Talisman(LerTalisman):
             elif self.classe_info['Ataque'] == 3:
                 sleep(2.5)
 
-    def usar_magia(self, numero_magia, tempo):
+    def usar_magia(self, numero_magia, tempo, se_selecionar=False):
+        # fazendo uma lista com todas as magia existentes
+        if self.magia != []:
+            # verificando se ja foi addicionado essa magia a lista
+            for lista_magia in self.magia:
+                if lista_magia[0] == numero_magia:
+                    verificar_lista = True
+                    break
+                else:
+                    verificar_lista = False
 
-        if self.magia_inicio is not None:
-            verificar = trunc(time() - self.magia_inicio)
-            if verificar >= self.tempo_magia:
-                self.magia_inicio = None
+            # se não foi adicionado vai adicionar aqui
+            if verificar_lista is False:
+                self.magia.append([numero_magia, tempo * 60, se_selecionar, None])
+        else:
+            self.magia.append([numero_magia, tempo * 60, se_selecionar, None])
 
-        if self.magia_inicio is None:
-            if self.classe_info['Classe'][0] == 'f':
-                self.teclado.precionar('f1')
-            self.teclado.precionar(numero_magia)
-            self.magia_inicio = time()
-            self.tempo_magia = tempo * 60
+        # usand magia
+        for pos_lista, lista_magia in enumerate(self.magia):
+            if lista_magia[3] is not None:
+                verificar_tempo = trunc(time() - lista_magia[3])
+                if verificar_tempo >= lista_magia[1]:
+                    lista_magia.pop(3)
+                    lista_magia.append(None)
+
+                    # atualizando a variavel self.magia
+                    # self.magia.pop(pos_lista)
+                    # self.magia.insert(pos_lista, lista_magia)
+
+            if lista_magia[3] is None:
+
+                # verificando se é para se selecionar
+                if lista_magia[2] is True:
+                    self.teclado.precionar('f1')
+
+                # precionando tecla e ativando time
+                for i in range(2):
+                    self.teclado.precionar(lista_magia[0])
+                lista_magia.pop(3)
+                lista_magia.append(time())
+
+                # atualizando a variavel self.magia
+                # self.magia.pop(pos_lista)
+                # self.magia.insert(pos_lista, lista_magia)
+
+
+        # if self.magia_inicio != []:
+        #     for i in len(self.magia_inicio):
+        #         inicio = self.magia_inicio[i-1]
+        #         verificar = trunc(time() - inicio[1])
+        #         if verificar >= inicio[2]:
+        #             self.magia_inicio.pop(i)
+        #
+        # if self.magia_inicio == [] or :
+        #     if self.classe_info['Classe'][0] == 'f':
+        #         self.teclado.precionar('f1')
+        #     self.teclado.precionar(numero_magia)
+        #     self.magia_inicio.append([numero_magia, time(), tempo * 60])
+        #     # self.tempo_magia = tempo * 60
 
     def curar(self):
         # se o usuario não tiver colocado com quanto ele quer que se cure
