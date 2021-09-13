@@ -1,0 +1,3 @@
+ReadWriteMemory
+pywinauto
+pywin32
