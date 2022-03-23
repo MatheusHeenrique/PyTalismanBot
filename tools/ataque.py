@@ -134,7 +134,7 @@ class Talisman(LerTalisman):
         # se o usuario não tiver colocado com quanto ele quer que se cure
         # o programa vai se curar quando tiver com 40 da mana ou da vidai
 
-        if self.classe_info['Classe'][0] == 'f':
+        if self.classe_info['Classe'][0] == 'f' and self.classe_info['VidaFairy'] is None:
             vida_total = self.catar_info('v') * 82
             self.classe_info['VidaFairy'] = trunc(vida_total / 100)
 
