@@ -1,17 +1,17 @@
-from tools.ler_memoria import LerTalisman
-from tools.teclado import MeuTeclado
+from tools.LerMemoria import LerMemoria
+from tools.MeuTeclado import MeuTeclado
 from time import sleep, time
 from math import trunc
 
 
-class Talisman(LerTalisman):
+class Ataque(LerMemoria):
     def __init__(self, personagem):
-        LerTalisman.__init__(self)
+        LerMemoria.__init__(self)
         self.magia = []
         self.classe_info = personagem
         self.teclado = MeuTeclado()
 
-        if type(self.classe_info['Ataque']) == type(list()):
+        if isinstance(self.classe_info['Ataque'], list):
             self.tipo_ataque = self.classe_info['Ataque'][-1]
             self.lista_ataque = None
 
@@ -43,7 +43,7 @@ class Talisman(LerTalisman):
 
     def ataque(self):
         # ataque
-        if type(self.classe_info['Ataque']) == type(list()):
+        if isinstance(self.classe_info['Ataque'], list):
 
             # passando a lista de ataques do dicionario para a variavel lista ataque
             if self.lista_ataque is None:
@@ -105,7 +105,7 @@ class Talisman(LerTalisman):
                     verificar_lista = False
 
             # se não foi adicionado vai adicionar aqui
-            if verificar_lista is False:
+            if not verificar_lista:
                 self.magia.append([numero_magia, tempo * 60, se_selecionar, None])
         else:
             self.magia.append([numero_magia, tempo * 60, se_selecionar, None])
@@ -132,7 +132,7 @@ class Talisman(LerTalisman):
 
     def curar(self):
         # se o usuario não tiver colocado com quanto ele quer que se cure
-        # o programa vai se curar quando tiver com 40 da mana ou da vidai
+        # o programa vai se curar quando tiver com 40 da mana ou da vida
 
         if self.classe_info['Classe'][0] == 'f' and self.classe_info['VidaFairy'] is None:
             vida_total = self.catar_info('v') * 82
@@ -165,11 +165,3 @@ class Talisman(LerTalisman):
                 sleep(4)
                 self.teclado.precionar(self.classe_info['BotaoMana'])  # botão em que a mana esta setada
                 sleep(15)
-
-    def fairy_curar(self, valor):
-        while True:
-            for i in range(0, 8):
-                self.teclado.precionar(valor[0])
-                sleep(0.5)
-            self.teclado.precionar(valor[1])
-            sleep(0.5)
