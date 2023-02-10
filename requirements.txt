@@ -1,0 +1,5 @@
+comtypes==1.1.14
+pywin32==305
+pywinauto==0.6.8
+ReadWriteMemory==0.1.5
+six==1.16.0

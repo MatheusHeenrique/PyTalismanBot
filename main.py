@@ -1,14 +1,13 @@
 from tools.Ataque import Ataque
+from tools.Menu import Menu
 
-# fairy
-personagem = {'Classe': 'fairy', 'Ataque': [2, 1, 'l'], 'Vida': None, 'Mana': None,
-              'BotaoCura': 6, 'BotaoMana': 9, 'Wizard': None, 'VidaFairy': None}
-
-talisman = Ataque(personagem)
+menu = Menu()
 
 
 while True:
-    talisman.curar()
-    talisman.usar_magia(8, 1, True)
-    talisman.usar_magia(7, 5, True)
-    talisman.atacar()
+    personagem = menu.get_info()
+    talisman = Ataque(personagem)
+    # talisman.curar()
+    # talisman.usar_magia(8, 1, True)
+    # talisman.usar_magia(7, 5, True)
+    # talisman.atacar()
