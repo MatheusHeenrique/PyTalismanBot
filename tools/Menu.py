@@ -43,7 +43,8 @@ class Menu:
     def principal(self):
         while True:
             self.logo()
-            print(f'Class: {self.info["Classe"]}')
+            wiz = self.info["Wizard"]
+            print(f'Class: {self.info["Classe"]}{f", {wiz}" if self.info["Classe"] == "wizard" else ""}')
 
             if self.info['Classe'] == 'fairy':
                 print(f'Cura: {self.info["VidaFairy"]}')
