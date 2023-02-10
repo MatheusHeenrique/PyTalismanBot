@@ -13,17 +13,15 @@ class Menu:
             self.info['Classe'] = classe
             self.info['Wizard'] = None
 
-
         self.info['Ataque'] = self.ataque()
 
         curaInfo = self.cura('cura')
-        if self.info['Classe'] == 'fairy':
-            self.info['VidaFairy'] = curaInfo[0]
-            self.info['Vida'] = None
-        else:
-            self.info['Vida'] = curaInfo[0]
-            self.info['VidaFairy'] = None
+        self.info['Vida'] = curaInfo[0]
         self.info['BotaoCura'] = curaInfo[1]
+        if len(curaInfo) >= 3:
+            self.info['VidaFairy'] = curaInfo[2]
+        else:
+            self.info['VidaFairy'] = None
 
         curaInfo = self.cura('mana')
         self.info['Mana'] = curaInfo[0]
@@ -46,10 +44,8 @@ class Menu:
             wiz = self.info["Wizard"]
             print(f'Class: {self.info["Classe"]}{f", {wiz}" if self.info["Classe"] == "wizard" else ""}')
 
-            if self.info['Classe'] == 'fairy':
-                print(f'Cura: {self.info["VidaFairy"]}')
-            else:
-                print(f'Cura: {self.info["Vida"]}')
+            para_cura = self.info["VidaFairy"]
+            print(f'Cura: {self.info["Vida"]}{f", {para_cura}" if para_cura is not None else ""}')
 
             print(f'Mana: {self.info["Mana"]}')
 
@@ -80,12 +76,14 @@ class Menu:
                         self.info['Classe'] = classe
                         self.info['Wizard'] = None
                 case 2:
-                    cura = self.cura('cura')
-                    if self.info['Classe'] == 'fairy':
-                        self.info['VidaFairy'] = cura[0]
+                    curaInfo = self.cura('cura')
+                    self.info['Vida'] = curaInfo[0]
+                    self.info['BotaoCura'] = curaInfo[1]
+                    if len(curaInfo) >= 3:
+                        self.info['VidaFairy'] = curaInfo[2]
                     else:
-                        self.info['Vida'] = cura[0]
-                    self.info['BotaoCura'] = cura[1]
+                        self.info['VidaFairy'] = None
+
                 case 3:
                     mana = self.cura('mana')
                     self.info['Mana'] = mana[0]
@@ -185,7 +183,23 @@ class Menu:
             self.logo()
             botao = input(f'Qual botão da {tipo}: ')
 
-        return [int(quantidade), int(botao)]
+        cura = None
+        if self.info['Classe'] == 'fairy' and tipo == 'cura':
+            para_cura = ' '
+            while para_cura not in 'sn':
+                self.logo()
+                para_cura = input('Você quer que a fairy pare de curar quando chegar a uma quantidade de hp? [s/N]')
+
+            if para_cura == 's':
+                fairy = ''
+                while not fairy.isdigit():
+                    self.logo()
+                    fairy = input('Você quer que a fairy pare de se cura com quantos de hp: ')
+                cura = [int(quantidade), int(botao), int(fairy)]
+                return cura
+
+        cura = [int(quantidade), int(botao)]
+        return cura
 
     def magia(self):
         botao = ''

@@ -34,7 +34,7 @@ while True:
 
     resposta_menu = menu.principal()
     para_ataque = True
-    sleep(5)
+    sleep(3)
 
     para_ataque = False
     if type(resposta_menu) == type(list()):
