@@ -10,7 +10,7 @@ To make the bot work correctly, it is necessary to adjust some variables, such a
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 ### Prerequisites
 
-This bot requires Python 3.7 or above and the PyAutoGUI and keyboard libraries to be installed. These can be installed using pip:
+This bot requires Python 3.7 or above and requires the libraries listed in requirements.txt. These can be installed using pip:
 
   pip install -r requirements.txt
 
