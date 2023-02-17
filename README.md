@@ -12,7 +12,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 This bot requires Python 3.7 or above and requires the libraries listed in requirements.txt. These can be installed using pip:
 
-  pip install -r requirements.txt
+    pip install -r requirements.txt
 
 ### Installing
 
@@ -20,7 +20,7 @@ To install the bot, simply clone the repository:
 
 bash
 
-  git clone https://github.com/your_username/talisman-bot.git
+      git clone https://github.com/your_username/talisman-bot.git
 
 ### Running the Bot
 
@@ -28,5 +28,5 @@ To run the bot, navigate to the directory containing the bot files and run:
 
 bash
 
-  python main.py
+    python main.py
 
