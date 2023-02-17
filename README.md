@@ -1,5 +1,33 @@
-Esse bot em Python é destinado ao jogo Talisman Online. O uso deste bot tem a vantagem de verificar o nível da vida do jogador e curá-lo quando chegar a um limite definido, tornando assim difícil a morte do jogador.
+Talisman Online Bot
 
-Não é possível usar este bot em várias janelas, mas ele funciona em segundo plano, permitindo que o jogador minimize a janela principal do jogo e utilize outra área de trabalho.
+This Python bot is intended for the game Talisman Online. The use of this bot has the advantage of checking the player's life level and healing them when it reaches a defined limit, making the player's death difficult.
 
-Para que o bot funcione corretamente, é necessário ajustar algumas variáveis, como as da linha 10 à 15 do arquivo LerMemoria. Tais variáveis incluem: self.ponteiro_vida (ponteiro da vida do jogador), self.ponteiro_mana (ponteiro da mana do jogador), self.ponteiro_selecionar_inimigo (ponteiro para verificar se o jogador selecionou algum inimigo) e self.ponteiro_vida_inimigo (ponteiro da vida do inimigo). A variável self.ponteiro_estamina não é necessária.
+It is not possible to use this bot in multiple windows, but it works in the background, allowing the player to minimize the main game window and use another workspace.
+
+To make the bot work correctly, it is necessary to adjust some variables, such as those on lines 10 to 15 of the LerMemoria file. These variables include: self.ponteiro_vida (player's life pointer), self.ponteiro_mana (player's mana pointer), self.ponteiro_selecionar_inimigo (pointer to check if the player has selected an enemy) and self.ponteiro_vida_inimigo (enemy's life pointer). The self.ponteiro_estamina variable is not necessary.
+Getting Started
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+Prerequisites
+
+This bot requires Python 3.7 or above and the PyAutoGUI and keyboard libraries to be installed. These can be installed using pip:
+
+pip install pyautogui
+pip install keyboard
+
+Installing
+
+To install the bot, simply clone the repository:
+
+bash
+
+git clone https://github.com/your_username/talisman-bot.git
+
+Running the Bot
+
+To run the bot, navigate to the directory containing the bot files and run:
+
+css
+
+python main.py
+
