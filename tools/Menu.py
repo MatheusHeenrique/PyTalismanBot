@@ -1,3 +1,4 @@
+import copy
 from os import system
 
 
@@ -60,7 +61,6 @@ class Menu:
             print('3 -> Editar mana')
             print('4 -> Editar Ataque')
             print('5 -> Adicionar magia')
-            print('6 -> sair\n')
 
             escolha = ''
             while not escolha.isdigit():
@@ -91,9 +91,7 @@ class Menu:
                 case 4:
                     self.info['Ataque'] = self.ataque()
                 case 5:
-                    return self.magia()
-                case 6:
-                    exit()
+                    self.info['spell'] = self.magia()
 
             return self.info
 
@@ -225,4 +223,7 @@ class Menu:
         return [int(botao), int(tempo), selecionar]
 
     def get_info(self):
-        return self.info
+        return copy.deepcopy(self.info)
+
+    def remove_from_dictionary(self, string):
+        self.info.pop(string)
