@@ -4,7 +4,7 @@ This Python bot is intended for the game Talisman Online. The use of this bot ha
 
 It is not possible to use this bot in multiple windows, but it works in the background, allowing the player to minimize the main game window and use another workspace.
 
-To make the bot work correctly, it is necessary to adjust some variables, such as those on lines 10 to 15 of the LerMemoria file. These variables include: self.ponteiro_vida (player's life pointer), self.ponteiro_mana (player's mana pointer), self.ponteiro_selecionar_inimigo (pointer to check if the player has selected an enemy) and self.ponteiro_vida_inimigo (enemy's life pointer). The self.ponteiro_estamina variable is not necessary.
+To make the bot work correctly, it is necessary to adjust some variables, such as those on lines 10 to 15 of the read_memory.py file. These variables include: self.pointer_life (player's life pointer), self.mana_pointer (player's mana pointer), self.pointer_select_enemy (pointer to check if the player has selected an enemy) and self.enemy_life_pointer (enemy's life pointer). The self.stamina_pointer variable is not necessary.
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
