@@ -6,16 +6,16 @@ from time import sleep
 from pywinauto import Desktop
 
 
-class MeuTeclado:
+class MyKeyboard:
     def __init__(self):
-        self.nome_processo = None
-        self.pegar_nome()
+        self.process_name = None
+        self.get_name()
 
-        self.hwnd = win32gui.FindWindow(None, self.nome_processo)
+        self.hwnd = win32gui.FindWindow(None, self.process_name)
         win = win32ui.CreateWindowFromHandle(self.hwnd)
 
         # dicionario teclado
-        self.dicionario_teclado = {
+        self.key_dictionary = {
             'tab': 0x09,
             'f1': 0x70,
             '0': 0x30,
@@ -30,28 +30,28 @@ class MeuTeclado:
             '9': 0x39
         }
 
-    def precionar(self, tecla):
-        tecla = str(tecla).lower()
+    def press(self, key):
+        key = str(key).lower()
 
         win32api.SendMessage(
             self.hwnd,
             win32con.WM_KEYDOWN,
-            self.dicionario_teclado[tecla],
+            self.key_dictionary[key],
             0
         )
         sleep(0.5)
         win32api.SendMessage(
             self.hwnd,
             win32con.WM_KEYUP,
-            self.dicionario_teclado[tecla],
+            self.key_dictionary[key],
             0
         )
 
-    def pegar_nome(self):
-        janelas = Desktop(backend="uia").windows()
-        janelas = [w.window_text() for w in janelas]
+    def get_name(self):
+        windows = Desktop(backend="uia").windows()
+        windows = [w.window_text() for w in windows]
 
-        for nome in janelas:
-            if nome.find('Talisman Online | ') != -1:
-                self.nome_processo = nome
+        for name in windows:
+            if name.find('Talisman Online | ') != -1:
+                self.process_name = name
                 break

@@ -1,5 +1,5 @@
-from tools.Ataque import Ataque
-from tools.Menu import Menu
+from tools.attack_manager import AttackManager
+from tools.menu import Menu
 from threading import Thread
 
 
@@ -13,10 +13,10 @@ while True:
         menu_information.pop('spell')
 
     # configurando
-    talisman = Ataque(menu_information)
+    talisman = AttackManager(menu_information)
 
     #menu
-    exec_menu = Thread(target=menu.principal)
+    exec_menu = Thread(target=menu.main_menu)
     exec_menu.start()
 
     # attack
@@ -26,12 +26,12 @@ while True:
             break
 
         # Cura
-        talisman.curar()
+        talisman.heal()
 
         # Magia
         if spell_list:
             for spell in spell_list:
-                talisman.usar_magia(spell[0], spell[1], spell[2])
+                talisman.use_magic(spell[0], spell[1], spell[2])
 
         # Ataque
-        talisman.atacar()
+        talisman.to_attack()
