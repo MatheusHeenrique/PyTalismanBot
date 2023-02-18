@@ -30,3 +30,7 @@ bash
 
     python main.py
 
+### executable
+
+Link:
+    encurtador.com.br/cowIL
