@@ -24,9 +24,13 @@ class Menu:
         else:
             self.information['VidaFairy'] = None
 
-        healing_information = self.healing('mana')
-        self.information['Mana'] = healing_information[0]
-        self.information['BotaoMana'] = healing_information[1]
+        if self.information['Classe'] in ['assasin', 'monk']:
+            self.information['Mana'] = None
+            self.information['BotaoMana'] = None
+        else:
+            healing_information = self.healing('mana')
+            self.information['Mana'] = healing_information[0]
+            self.information['BotaoMana'] = healing_information[1]
 
     @staticmethod
     def logo():
@@ -60,7 +64,8 @@ class Menu:
             print('2 -> Editar cura')
             print('3 -> Editar mana')
             print('4 -> Editar Ataque')
-            print('5 -> Adicionar magia\n')
+            print('5 -> Adicionar magia')
+            print('6 -> Pausar\n')
 
             choice = ''
             while not choice.isdigit():
@@ -85,6 +90,8 @@ class Menu:
                         self.information['VidaFairy'] = None
 
                 case 3:
+                    if self.information['Classe'] in ['assasin', 'monk']:
+                        continue
                     mana = self.healing('mana')
                     self.information['Mana'] = mana[0]
                     self.information['BotaoMana'] = mana[1]
@@ -92,6 +99,8 @@ class Menu:
                     self.information['Ataque'] = self.attack()
                 case 5:
                     self.information['spell'] = self.magic()
+                case 6:
+                    self.information['pause'] = True
 
             return self.information
 
@@ -101,7 +110,8 @@ class Menu:
             self.logo()
             print('\nQual a classe do seu personagem?')
             print('\n1 - Fairy \n2 - Tamer')
-            print('3 - Assasin  \n4 - Wizard')
+            print('3 - Assasin  \n4 - Monk')
+            print('5 - Wizard')
             character_class = input('Comando: ')
 
         match int(character_class):
@@ -112,6 +122,8 @@ class Menu:
             case 3:
                 character_class = 'assasin'
             case 4:
+                character_class = 'monk'
+            case 5:
                 character_class = 'wizard'
                 weapon = ''
                 while not weapon.isdigit():

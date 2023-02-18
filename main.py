@@ -1,19 +1,28 @@
 from tools.attack_manager import AttackManager
 from tools.menu import Menu
 from threading import Thread
+import copy
 
 
 menu = Menu()
 menu_information = menu.get_info()
 spell_list = list()
 while True:
+    # verificando magia
     if 'spell' in menu_information:
         spell_list.append(menu_information['spell'])
         menu.remove_from_dictionary('spell')
         menu_information.pop('spell')
 
+    # pausar o jogo
+    if 'pause' in menu_information:
+        menu.remove_from_dictionary('pause')
+        menu_information.pop('pause')
+        Menu.logo()
+        resume = input('Deseja despausar o bot? [s/N]')
+
     # configurando
-    talisman = AttackManager(menu_information)
+    talisman = AttackManager(copy.deepcopy(menu_information))
 
     #menu
     exec_menu = Thread(target=menu.main_menu)

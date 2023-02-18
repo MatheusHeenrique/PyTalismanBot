@@ -142,7 +142,7 @@ class AttackManager(ReadMemory):
             total_life = self.get_information('v') * 40
             self.information_character['Vida'] = trunc(total_life / 100)
 
-        if self.information_character['Mana'] is None:
+        if self.information_character['Classe'] in ['fairy', 'tamer', 'wizard'] and self.information_character['Mana'] is None:
             total_mana = self.get_information('m') * 40
             self.information_character['Mana'] = trunc(total_mana / 100)
 
