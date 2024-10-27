@@ -1,12 +1,12 @@
-from tools.read_memory import ReadMemory
-from tools.my_keyboard import MyKeyboard
+from src.game_stats_reader import GameStatsReader
+from src.my_keyboard import MyKeyboard
 from time import sleep, time
 from math import trunc
 
 
-class AttackManager(ReadMemory):
+class AttackManager(GameStatsReader):
     def __init__(self, character):
-        ReadMemory.__init__(self)
+        GameStatsReader.__init__(self)
         self.magic = []
         self.information_character = character
         self.keyboard = MyKeyboard()

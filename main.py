@@ -1,5 +1,5 @@
-from tools.attack_manager import AttackManager
-from tools.menu import Menu
+from src.attack_manager import AttackManager
+from src.menu import Menu
 from threading import Thread
 import copy
 

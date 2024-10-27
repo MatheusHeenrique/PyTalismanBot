@@ -29,9 +29,3 @@ To run the bot, navigate to the directory containing the bot files and run:
 bash
 
     python main.py
-
-### executable
-
-link:
-
-    www.encurtador.com.br/cowIL
